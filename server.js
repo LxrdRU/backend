@@ -6,6 +6,8 @@ const clarifai = require('clarifai');
 const appKey = new Clarifai.App({
   apiKey:'032e76a123a5484ca3613ecae12015e1'
 });
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 const db = require('knex')({
   client: 'pg',
   connection: {
@@ -14,9 +16,7 @@ const db = require('knex')({
   }
 });
 
-db.select('*').from('users').then(data =>{
-	console.log(data);
-});
+
 
 const app = express();
 
@@ -85,7 +85,7 @@ app.post('/register', (req, res)=>{
 			.then(trx.commit)
 			.catch(trx.rollback)
 		})
-		.catch(err => res.status(400).json(err))
+		.catch(err => res.status(400).json('unable to register'))
 })
 app.get('/profile/:id', (req, res) =>{
 	const {id} = req.params;
