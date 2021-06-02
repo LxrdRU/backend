@@ -9,10 +9,8 @@ const appKey = new Clarifai.App({
 const db = require('knex')({
   client: 'pg',
   connection: {
-    host : 'postgresql-adjacent-30654',
-    user : 'postgres',
-    password : 'a981203A',
-    database : 'crecognition'
+    host : process.env.DATABASE_URL,
+    ssl : true
   }
 });
 
